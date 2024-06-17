@@ -2,8 +2,8 @@ package com.tim.regions.handlers;
 
 import com.tim.regions.Main;
 import com.tim.regions.ParticleTask;
-import com.tim.regions.cuboid.Cuboid;
-import com.tim.regions.cuboid.CuboidManager;
+import com.tim.regions.region.Region;
+import com.tim.regions.region.RegionManager;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,12 +15,12 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.scheduler.BukkitTask;
 
 public class PlayerInteractHandler implements Listener {
-    private final CuboidManager cuboidManager;
+    private final RegionManager regionManager;
     private final Main main;
     private BukkitTask particleTask;
 
-    public PlayerInteractHandler(CuboidManager cuboidManager, Main main) {
-        this.cuboidManager = cuboidManager;
+    public PlayerInteractHandler(RegionManager regionManager, Main main) {
+        this.regionManager = regionManager;
         this.main = main;
     }
 
@@ -32,7 +32,7 @@ public class PlayerInteractHandler implements Listener {
                 Block clickedBlock = event.getClickedBlock();
                 if (clickedBlock != null) {
                     Location blockLocation = clickedBlock.getLocation();
-                    Location[] points = this.cuboidManager.getPoints(player);
+                    Location[] points = this.regionManager.getPoints(player);
                     if (points == null) {
                         points = new Location[2];
                     }
@@ -44,8 +44,8 @@ public class PlayerInteractHandler implements Listener {
 
                     boolean settingNewPoint = points[0] == null || !points[0].equals(blockLocation);
                     if (!settingNewPoint && points[0] != null && points[1] != null) {
-                        this.cuboidManager.setPoint(player, null, 0);
-                        this.cuboidManager.setPoint(player, null, 1);
+                        this.regionManager.setPoint(player, null, 0);
+                        this.regionManager.setPoint(player, null, 1);
                         player.sendMessage("Previous cuboid points reset!");
                         if (this.particleTask != null) {
                             this.particleTask.cancel();
@@ -54,13 +54,13 @@ public class PlayerInteractHandler implements Listener {
                     }
 
                     if (points[0] == null) {
-                        this.cuboidManager.setPoint(player, blockLocation, 0);
+                        this.regionManager.setPoint(player, blockLocation, 0);
                         player.sendMessage("Point 1 set!");
                     } else if (!points[0].equals(blockLocation)) {
-                        this.cuboidManager.setPoint(player, blockLocation, 1);
+                        this.regionManager.setPoint(player, blockLocation, 1);
                         player.sendMessage("Point 2 set!");
-                        Cuboid cuboid = new Cuboid(points[0], blockLocation, null);
-                        this.particleTask = (new ParticleTask(cuboid, this.main)).runTaskTimer(this.main, 0L, 20L);
+                        Region region = new Region(points[0], blockLocation, null);
+                        this.particleTask = (new ParticleTask(region, this.main)).runTaskTimer(this.main, 0L, 20L);
                     }
                 }
             }

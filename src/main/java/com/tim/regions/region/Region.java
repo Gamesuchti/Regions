@@ -1,4 +1,4 @@
-package com.tim.regions.cuboid;
+package com.tim.regions.region;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,7 +9,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
-public class Cuboid {
+public class Region {
     private String name;
     private final Location point1;
     private final Location point2;
@@ -27,7 +27,7 @@ public class Cuboid {
     private final double zMaxCentered;
     private final World world;
 
-    public Cuboid(Location point1, Location point2, String name) {
+    public Region(Location point1, Location point2, String name) {
         this.name = name;
         this.point1 = point1;
         this.point2 = point2;

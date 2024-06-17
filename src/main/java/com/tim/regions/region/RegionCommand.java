@@ -1,4 +1,4 @@
-package com.tim.regions.cuboid;
+package com.tim.regions.region;
 
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -6,11 +6,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-public class CuboidCommand implements CommandExecutor {
-    private final CuboidManager cuboidManager;
+public class RegionCommand implements CommandExecutor {
+    private final RegionManager regionManager;
 
-    public CuboidCommand(CuboidManager cuboidManager) {
-        this.cuboidManager = cuboidManager;
+    public RegionCommand(RegionManager regionManager) {
+        this.regionManager = regionManager;
     }
 
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -25,10 +25,10 @@ public class CuboidCommand implements CommandExecutor {
                             return false;
                         } else {
                             String cuboidName = args[1];
-                            if (this.cuboidManager.getPoints(player)[0] != null && this.cuboidManager.getPoints(player)[1] != null) {
-                                Cuboid cuboid = new Cuboid(this.cuboidManager.getPoints(player)[0], this.cuboidManager.getPoints(player)[1], cuboidName);
-                                cuboid.setName(cuboidName);
-                                this.cuboidManager.addCuboid(cuboid);
+                            if (this.regionManager.getPoints(player)[0] != null && this.regionManager.getPoints(player)[1] != null) {
+                                Region region = new Region(this.regionManager.getPoints(player)[0], this.regionManager.getPoints(player)[1], cuboidName);
+                                region.setName(cuboidName);
+                                this.regionManager.addCuboid(region);
                                 player.sendMessage("Cuboid " + ChatColor.GREEN + cuboidName + ChatColor.WHITE + " saved!");
                                 return true;
                             } else {
@@ -37,7 +37,7 @@ public class CuboidCommand implements CommandExecutor {
                             }
                         }
                     } else if (args[0].equalsIgnoreCase("reset")) {
-                        this.cuboidManager.resetPoints(player);
+                        this.regionManager.resetPoints(player);
                         player.sendMessage("Cuboid removed!");
                         return true;
                     } else {

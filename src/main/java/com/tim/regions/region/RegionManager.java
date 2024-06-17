@@ -1,4 +1,4 @@
-package com.tim.regions.cuboid;
+package com.tim.regions.region;
 
 import com.tim.regions.Main;
 import java.util.ArrayList;
@@ -9,24 +9,24 @@ import java.util.UUID;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-public class CuboidManager {
+public class RegionManager {
     private final Main main;
-    private final List<Cuboid> cuboids = new ArrayList();
+    private final List<Region> regions = new ArrayList();
     private final Map<UUID, Location[]> playerCuboids = new HashMap();
 
-    public List<Cuboid> getCuboids() {
-        return this.cuboids;
+    public List<Region> getCuboids() {
+        return this.regions;
     }
 
-    public void addCuboid(Cuboid cuboid) {
-        this.cuboids.add(cuboid);
+    public void addCuboid(Region region) {
+        this.regions.add(region);
     }
 
-    public void removeCuboid(Cuboid cuboid) {
-        this.cuboids.remove(cuboid);
+    public void removeCuboid(Region region) {
+        this.regions.remove(region);
     }
 
-    public CuboidManager(Main main) {
+    public RegionManager(Main main) {
         this.main = main;
     }
 
