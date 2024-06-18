@@ -4,7 +4,3 @@ main: com.tim.regions.Main
 api-version: '1.20'
 author: Tim
 depend: [WorldGuard]
-commands:
-  cuboid:
-    description: Create a cuboid region
-    usage: /cuboid save/reset (name)
